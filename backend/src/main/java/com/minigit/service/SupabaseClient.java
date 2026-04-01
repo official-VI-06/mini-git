@@ -3,7 +3,6 @@ package com.minigit.service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.minigit.command.ommand;
 
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -78,8 +77,20 @@ public class SupabaseClient {
         return response.body();
     }
 
+    public String upsert(String table, Map<String, Object> data) throws IOException, InterruptedException {
+        String json = objectMapper.writeValueAsString(data);
 
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(supabaseUrl + "/rest/v1/" + table))
+                .header("apikey", supabaseApiKey)
+                .header("Authorization", "Bearer " + supabaseApiKey)
+                .header("Content-Type", "application/json")
+                .header("Prefer", "resolution=merge-duplicates")
+                .POST(HttpRequest.BodyPublishers.ofString(json))
+                .build();
 
-
-    
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        return response.body();
+    }   
+   
 }
