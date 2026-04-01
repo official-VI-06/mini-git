@@ -34,7 +34,7 @@ public class LogCommand implements Command {
             List<Map<String, Object>> commits = new ArrayList<>();
 
             while (commitHash != null) {
-                Map<String, Object> object = repository.getObject(commitHash);
+                Map<String, Object> object = repository.getObject(commitHash, repoId);
                 if (object == null) break;
 
                 String content = (String) object.get("content");

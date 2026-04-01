@@ -30,8 +30,8 @@ public class DiffCommand implements Command {
     public CommandResult execute() {
         try {
             // Step 1 — Fetch commits
-            Map<String, Object> commitA = repository.getObject(hashA);
-            Map<String, Object> commitB = repository.getObject(hashB);
+            Map<String, Object> commitA = repository.getObject(hashA, repoId);
+            Map<String, Object> commitB = repository.getObject(hashB, repoId);
 
             if (commitA == null || commitB == null) {
                 return CommandResult.failure("One or both commits not found");
@@ -45,8 +45,8 @@ public class DiffCommand implements Command {
             String treeHashA = (String) parsedA.get("tree");
             String treeHashB = (String) parsedB.get("tree");
 
-            Map<String, Object> treeObjectA = repository.getObject(treeHashA);
-            Map<String, Object> treeObjectB = repository.getObject(treeHashB);
+            Map<String, Object> treeObjectA = repository.getObject(treeHashA, repoId);
+            Map<String, Object> treeObjectB = repository.getObject(treeHashB, repoId);
 
             if (treeObjectA == null || treeObjectB == null) {
                 return CommandResult.failure("Tree objects not found");
@@ -73,8 +73,8 @@ public class DiffCommand implements Command {
                     diffResults.put(filename, List.of("- (deleted)"));
                 } else if (!blobHashA.equals(blobHashB)) {
                     // Fetch blobs
-                    Map<String, Object> blobA = repository.getObject(blobHashA);
-                    Map<String, Object> blobB = repository.getObject(blobHashB);
+                    Map<String, Object> blobA = repository.getObject(blobHashA, repoId);
+                    Map<String, Object> blobB = repository.getObject(blobHashB, repoId);
 
                     if (blobA == null || blobB == null) continue;
 

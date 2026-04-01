@@ -112,8 +112,8 @@ public class Repository {
         return repoId;
     }
 
-    public Map<String, Object> getObject(String hash) throws Exception {
-        String response = supabaseClient.select("objects", "hash=eq." + hash);
+    public Map<String, Object> getObject(String hash, String repoId) throws Exception {
+        String response = supabaseClient.select("objects", "hash=eq." + hash + "&repo_id=eq." + repoId);
         List<Map<String, Object>> result = objectMapper.readValue(
             response,
             new TypeReference<List<Map<String, Object>>>() {}
