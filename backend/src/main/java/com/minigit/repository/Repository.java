@@ -70,13 +70,17 @@ public class Repository {
     }
 
     public void updateRef(String repoId, String branchName, String commitHash) throws Exception {
+        // Delete existing refs for this repo/branch
+        supabaseClient.delete("refs", "repo_id=eq." + repoId + "&name=eq." + branchName);
+        
+        // Insert new
         Map<String, Object> data = new HashMap<>();
-
         data.put("repo_id", repoId);
         data.put("name", branchName);
         data.put("commit_hash", commitHash);
 
-        supabaseClient.upsert("refs", data);
+        supabaseClient.insert("refs", data);
+        System.out.println("Updated ref: repo=" + repoId + ", branch=" + branchName + ", hash=" + commitHash);
     }
 
     public String getRef(String repoId, String branchName) throws Exception {
