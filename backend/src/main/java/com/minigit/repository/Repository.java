@@ -15,10 +15,10 @@ import java.util.HashMap;
 @Service
 public class Repository {
 
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
     @Autowired
     private SupabaseClient supabaseClient;
-
-    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public void saveObject(GitObject object, String repoId, String type) throws Exception {
         Map<String, Object> data = new HashMap<>();

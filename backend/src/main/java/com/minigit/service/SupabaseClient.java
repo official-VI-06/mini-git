@@ -16,7 +16,7 @@ public class SupabaseClient {
     @Value("${supabase.url}")
     private String supabaseUrl;
 
-    @Value("${supabase.api-key}")
+    @Value("${supabase.apiKey}")
     private String supabaseApiKey;
 
     private final HttpClient httpClient = HttpClient.newHttpClient();
