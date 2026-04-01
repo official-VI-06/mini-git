@@ -111,4 +111,21 @@ public class Repository {
 
         return repoId;
     }
+
+    public Map<String, Object> getObject(String hash) throws Exception {
+        String response = supabaseClient.select("objects", "hash=eq." + hash);
+        List<Map<String, Object>> result = objectMapper.readValue(
+            response,
+            new TypeReference<List<Map<String, Object>>>() {}
+        );
+        if (result.isEmpty()) return null;
+        return result.get(0);
+    }
+
+    public void updateHead(String repoId, String branchName) throws Exception {
+        Map<String, Object> data = new HashMap<>();
+        data.put("repo_id", repoId);
+        data.put("branch_name", branchName);
+        supabaseClient.upsert("head", data);
+    }
 }
