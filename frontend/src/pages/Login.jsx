@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { supabase } from '../supabase/supabaseClient'
 import { useNavigate, Link } from 'react-router-dom'
+import './Login.css';
 
 export default function Login() {
   const navigate = useNavigate()
@@ -21,7 +22,7 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-950">
       <div className="bg-gray-900 p-8 rounded-lg w-full max-w-md">
-        <h1 className="text-2xl font-bold text-white mb-6">Sign in to Mini-Git</h1>
+        <h1 className="login-heading text-2xl font-bold mb-6 whitespace-nowrap"> Sign in to Mini-Git </h1>
         {error && <p className="text-red-400 mb-4">{error}</p>}
         <form onSubmit={handleLogin}>
           <input
