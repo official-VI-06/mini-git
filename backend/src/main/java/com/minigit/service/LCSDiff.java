@@ -18,9 +18,6 @@ public class LCSDiff implements DiffStrategy {
         return backtrack(dp, linesA, linesB, linesA.length, linesB.length);
     }
 
-    /**
-     * Builds the LCS DP table
-     */
     private int[][] buildLCSTable(String[] a, String[] b) {
         int m = a.length;
         int n = b.length;
@@ -40,9 +37,6 @@ public class LCSDiff implements DiffStrategy {
         return dp;
     }
 
-    /**
-     * Backtracks through the LCS table to generate diff output
-     */
     private List<String> backtrack(int[][] dp, String[] a, String[] b, int i, int j) {
         if (i == 0 && j == 0) {
             return new ArrayList<>();

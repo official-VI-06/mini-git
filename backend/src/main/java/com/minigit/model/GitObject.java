@@ -42,7 +42,7 @@ public abstract class GitObject {
         }
     }
 
-    // Helper method for subclasses to convert string → bytes
+    // Helper method for subclasses to convert string to bytes
     protected byte[] toBytes(String s) {
         return s.getBytes(StandardCharsets.UTF_8);
     }

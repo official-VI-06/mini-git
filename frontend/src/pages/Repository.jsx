@@ -4,6 +4,7 @@ import { supabase } from '../supabase/supabaseClient'
 import { addFile, commitFiles, createBranch, checkoutBranch } from '../api/api'
 import FileEditor from '../components/FileEditor'
 import Navbar from '../components/Navbar'
+import './Login.css';
 
 export default function Repository({ session }) {
   const { repoId } = useParams()
@@ -140,7 +141,7 @@ export default function Repository({ session }) {
 
             {/* Staged files */}
             <div className="bg-gray-900 p-6 rounded-lg mb-6">
-              <h2 className="text-xl font-semibold mb-4">
+              <h2 className="login-heading text-2xl font-bold mb-6 whitespace-nowrap4">
                 Staged Files ({stagedFiles.length})
               </h2>
               {stagedFiles.length === 0 ? (
@@ -157,7 +158,7 @@ export default function Repository({ session }) {
 
             {/* Commit form */}
             <div className="bg-gray-900 p-6 rounded-lg">
-              <h2 className="text-xl font-semibold mb-4">Commit</h2>
+              <h2 className="login-heading text-xl font-bold mb-4 whitespace-nowrap4">Commit</h2>
               <form onSubmit={handleCommit}>
                 <input
                   type="text"
@@ -183,7 +184,7 @@ export default function Repository({ session }) {
 
             {/* Create branch */}
             <div className="bg-gray-900 p-6 rounded-lg mb-6">
-              <h2 className="text-xl font-semibold mb-4">Create Branch</h2>
+              <h2 className="login-heading text-xl font-bold mb-4 whitespace-nowrap4">Create Branch</h2>
               <form onSubmit={handleCreateBranch} className="flex gap-3">
                 <input
                   type="text"
@@ -204,9 +205,9 @@ export default function Repository({ session }) {
 
             {/* Branch list */}
             <div className="bg-gray-900 p-6 rounded-lg">
-              <h2 className="text-xl font-semibold mb-4">Branches</h2>
+              <h2 className="login-heading text-xl font-bold mb-4 whitespace-nowrap4">Branches</h2>
               {branches.length === 0 ? (
-                <p className="text-gray-400">No branches yet</p>
+                <p className="login-heading text-xl font-bold mb-4 whitespace-nowrap4">No branches yet</p>
               ) : (
                 branches.map((branch, i) => (
                   <div

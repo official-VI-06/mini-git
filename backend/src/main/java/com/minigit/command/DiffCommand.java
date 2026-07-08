@@ -29,7 +29,6 @@ public class DiffCommand implements Command {
     @Override
     public CommandResult execute() {
         try {
-            // Step 1 — Fetch commits
             Map<String, Object> commitA = repository.getObject(hashA, repoId);
             Map<String, Object> commitB = repository.getObject(hashB, repoId);
 
@@ -37,11 +36,9 @@ public class DiffCommand implements Command {
                 return CommandResult.failure("One or both commits not found");
             }
 
-            // Step 2 — Parse commit content
             Map<String, Object> parsedA = parseContent((String) commitA.get("content"));
             Map<String, Object> parsedB = parseContent((String) commitB.get("content"));
 
-            // Step 3 — Fetch trees
             String treeHashA = (String) parsedA.get("tree");
             String treeHashB = (String) parsedB.get("tree");
 
@@ -52,11 +49,9 @@ public class DiffCommand implements Command {
                 return CommandResult.failure("Tree objects not found");
             }
 
-            // Step 4 — Parse tree contents
             Map<String, String> entriesA = parseTreeContent((String) treeObjectA.get("content"));
             Map<String, String> entriesB = parseTreeContent((String) treeObjectB.get("content"));
 
-            // Step 5 — Compare files
             Map<String, Object> diffResults = new HashMap<>();
 
             Set<String> allFiles = new HashSet<>();
@@ -89,10 +84,9 @@ public class DiffCommand implements Command {
 
                     diffResults.put(filename, diff);
                 }
-                // unchanged → skip
+                // unchanged to skip
             }
 
-            // Step 6 — Return result
             return CommandResult.success("Diff computed", diffResults);
 
         } catch (Exception e) {

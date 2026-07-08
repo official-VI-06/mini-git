@@ -21,16 +21,13 @@ public class LogCommand implements Command {
     @Override
     public CommandResult execute() {
         try {
-            // Step 1 - Get current branch and latest commit
             String currentBranch = repository.getHead(repoId);
             String commitHash = repository.getRef(repoId, currentBranch);
 
-            // Step 2 - Check if commits exist
             if (commitHash == null) {
                 return CommandResult.failure("No commits yet");
             }
 
-            // Step 3 - Traverse commit chain
             List<Map<String, Object>> commits = new ArrayList<>();
 
             while (commitHash != null) {
@@ -48,7 +45,6 @@ public class LogCommand implements Command {
                 commitHash = (String) fields.get("parentHash");
             }
 
-            // Step 5 - Return result
             return CommandResult.success("Log retrieved", commits);
 
         } catch (Exception e) {

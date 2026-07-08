@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../supabase/supabaseClient'
 import { useNavigate } from 'react-router-dom'
 import { initRepo } from '../api/api'
+import './Login.css';
 
 export default function Dashboard({ session }) {
   const navigate = useNavigate()
@@ -82,7 +83,7 @@ export default function Dashboard({ session }) {
             onClick={() => navigate(`/repo/${repo.id}`)}
             className="bg-gray-900 p-6 rounded-lg cursor-pointer hover:bg-gray-800 transition"
           >
-            <h2 className="text-xl font-semibold mb-2">{repo.name}</h2>
+            <h2 className="login-heading text-2xl font-bold mb-6 whitespace-nowrap">{repo.name}</h2>
             <p className="text-gray-400 text-sm">
               {new Date(repo.created_at).toLocaleDateString()}
             </p>
