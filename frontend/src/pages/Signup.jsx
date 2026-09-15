@@ -26,20 +26,25 @@ export default function Signup() {
         {error && <p className="text-red-400 mb-4">{error}</p>}
         <form onSubmit={handleSignup}>
           <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full bg-gray-800 text-white p-3 rounded-lg mb-4 outline-none"
-            required
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full bg-gray-800 text-white p-3 rounded-lg mb-4 outline-none"
+              required
           />
+            
           <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full bg-gray-800 text-white p-3 rounded-lg mb-4 outline-none"
-            required
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full bg-gray-800 text-white p-3 rounded-lg mb-4 outline-none"
+              required
           />
           <button
             type="submit"

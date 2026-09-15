@@ -55,6 +55,8 @@ export default function Dashboard({ session }) {
       <form onSubmit={handleCreateRepo} className="mb-8 flex gap-4">
         <input
           type="text"
+          id="repo-name" 
+          name="repo-name"
           placeholder="New repository name"
           value={newRepoName}
           onChange={(e) => setNewRepoName(e.target.value)}

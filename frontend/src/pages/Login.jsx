@@ -27,20 +27,25 @@ export default function Login() {
         <form onSubmit={handleLogin}>
           <input
             type="email"
+            id="email"
+            name="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full bg-gray-800 text-white p-3 rounded-lg mb-4 outline-none"
             required
-          />
-          <input
+        />
+          
+        <input
             type="password"
+            id="password"
+            name="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full bg-gray-800 text-white p-3 rounded-lg mb-4 outline-none"
             required
-          />
+        />
           <button
             type="submit"
             className="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition"

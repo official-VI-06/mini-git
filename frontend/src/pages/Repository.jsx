@@ -97,7 +97,7 @@ export default function Repository({ session }) {
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold">{repoName}</h1>
+            <h1 className="text-3xl font-bold text-white! ">{repoName}</h1>
             <span className="text-green-400 text-sm">branch: {currentBranch}</span>
           </div>
           <div className="flex gap-4">
@@ -162,6 +162,8 @@ export default function Repository({ session }) {
               <form onSubmit={handleCommit}>
                 <input
                   type="text"
+                  id="commit-message" 
+                  name="commit-message"
                   placeholder="Commit message"
                   value={commitMessage}
                   onChange={(e) => setCommitMessage(e.target.value)}
@@ -188,6 +190,8 @@ export default function Repository({ session }) {
               <form onSubmit={handleCreateBranch} className="flex gap-3">
                 <input
                   type="text"
+                  id="branch-name"
+                  name="branch-name"
                   placeholder="Branch name"
                   value={newBranchName}
                   onChange={(e) => setNewBranchName(e.target.value)}

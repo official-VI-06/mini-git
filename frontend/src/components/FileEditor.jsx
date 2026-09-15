@@ -14,12 +14,14 @@ export default function FileEditor({ onStage }) {
 
     return (
         <div className="bg-gray-900 p-6 rounded-lg">
-            <h2 className="text-xl font-semibold mb-4">Add File</h2>
+            <h2 className="text-xl font-semibold mb-4 text-white!">Add File</h2>
             <form onSubmit={handleSubmit}>
 
                 {/* File path input */}
                 <input
                     type="text"
+                    id="file-path" 
+                    name="file-path"
                     placeholder="File path (e.g. src/Main.java)"
                     value={filePath}
                     onChange={(e) => setFilePath(e.target.value)}
@@ -37,6 +39,8 @@ export default function FileEditor({ onStage }) {
                     </div>
                     {/* Code textarea */}
                     <textarea
+                        id="file-content"
+                        name="file-content"
                         placeholder="File content..."
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
