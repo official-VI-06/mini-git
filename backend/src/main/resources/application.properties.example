@@ -1,0 +1,4 @@
+spring.application.name=minigit
+
+supabase.url=https://your-project-ref.supabase.co
+supabase.apiKey=your-supabase-service-role-or-secret-key
