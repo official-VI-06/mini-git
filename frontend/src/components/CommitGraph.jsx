@@ -52,10 +52,10 @@ export default function CommitGraph({ commits }) {
     }, [commits])
 
     return (
-        <div className="bg-gray-900 p-6 rounded-lg mt-6">
-            <h2 className="text-xl font-semibold mb-4">Commit Graph</h2>
+        <div className="bg-gray-900 border border-gray-800 p-6 rounded-xl mt-6">
+            <h2 className="text-lg font-bold mb-4">Commit Graph</h2>
             {commits.length === 0
-                ? <p className="text-gray-400">No commits to display</p>
+                ? <p className="text-gray-500 text-sm">No commits to display</p>
                 : <canvas
                     ref={canvasRef}
                     width={400}

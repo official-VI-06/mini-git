@@ -14,16 +14,16 @@ export default function DiffViewer({ diff }) {
     }
 
     return (
-        <div className="bg-gray-900 rounded-lg overflow-hidden mb-6">
-            <h2 className="text-xl font-semibold p-4 border-b border-gray-700">
+        <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden mb-6">
+            <h2 className="text-lg font-bold p-4 border-b border-gray-800">
                 Diff Viewer
             </h2>
 
             {Object.entries(diff).map(([filename, lines]) => (
-                <div key={filename} className="mb-4">
+                <div key={filename} className="mb-4 last:mb-0">
 
                     {/* File header */}
-                    <div className="bg-gray-800 px-4 py-2 font-mono text-blue-300 text-sm border-b border-gray-700">
+                    <div className="bg-gray-800/60 px-4 py-2 font-mono text-blue-300 text-sm border-b border-gray-800">
                         {filename}
                     </div>
 
@@ -49,7 +49,7 @@ export default function DiffViewer({ diff }) {
 
             {/* Empty state */}
             {Object.keys(diff).length === 0 && (
-                <p className="text-gray-400 p-4">No differences found</p>
+                <p className="text-gray-500 text-sm p-4">No differences found</p>
             )}
         </div>
     )

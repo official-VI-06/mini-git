@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { getLog, getDiff } from '../api/api'
 import DiffViewer from '../components/DiffViewer'
 import CommitGraph from '../components/CommitGraph'
+import Navbar from '../components/Navbar'
 
 export default function CommitLog({ session }) {
     const { repoId } = useParams()
@@ -51,67 +52,87 @@ export default function CommitLog({ session }) {
     }
 
     return (
-        <div className="min-h-screen bg-gray-950 text-white p-8">
-            {/* Header */}
-            <div className="flex justify-between items-center mb-8">
-                <h1 className="text-3xl font-bold">Commit History</h1>
-                <button onClick={() => navigate(`/repo/${repoId}`)}
-                    className="text-gray-400 hover:text-white">
-                    ← Back to Repo
-                </button>
-            </div>
+        <div className="min-h-screen w-full bg-gray-950 text-white">
+            <Navbar session={session} />
 
-            {error && <p className="text-red-400 mb-4">{error}</p>}
-            {loading && <p className="text-gray-400">Loading commits...</p>}
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Left — commit list */}
-                <div>
-                    {/* Diff button */}
-                    {selectedCommits.length === 2 && (
-                        <button
-                            onClick={handleDiff}
-                            className="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-lg mb-6">
-                            {diffLoading ? 'Computing diff...' : 'Compare selected commits'}
+            <div className="max-w-7xl mx-auto px-6 lg:px-10 py-10">
+                {/* Header */}
+                <div className="flex justify-between items-center mb-8">
+                    <div>
+                        <button onClick={() => navigate(`/repo/${repoId}`)}
+                            className="text-gray-500 hover:text-gray-300 text-sm mb-2 transition-colors">
+                            ← Back to Repo
                         </button>
-                    )}
-
-                    {/* Commit cards */}
-                    {commits.map((commit, i) => (
-                        <div
-                            key={i}
-                            onClick={() => handleSelectCommit(commit.hash)}
-                            className={`p-4 rounded-lg mb-3 cursor-pointer border transition ${
-                                selectedCommits.includes(commit.hash)
-                                    ? 'border-blue-500 bg-gray-800'
-                                    : 'border-gray-700 bg-gray-900 hover:bg-gray-800'
-                            }`}
-                        >
-                            <p className="font-mono text-blue-400 text-sm mb-1">
-                                {commit.hash?.substring(0, 8)}
-                            </p>
-                            <p className="font-semibold mb-1">{commit.message}</p>
-                            <div className="flex justify-between text-gray-400 text-sm">
-                                <span>{commit.author}</span>
-                                <span>{new Date(commit.timestamp).toLocaleString()}</span>
-                            </div>
-                            {selectedCommits.includes(commit.hash) && (
-                                <p className="text-blue-400 text-xs mt-2">
-                                    Selected #{selectedCommits.indexOf(commit.hash) + 1}
-                                </p>
-                            )}
-                        </div>
-                    ))}
-
-                    {!loading && commits.length === 0 && (
-                        <p className="text-gray-400 text-center mt-8">No commits yet</p>
+                        <h1 className="text-3xl font-bold">Commit History</h1>
+                    </div>
+                    {selectedCommits.length > 0 && (
+                        <span className="text-gray-500 text-sm">
+                            {selectedCommits.length}/2 commits selected
+                        </span>
                     )}
                 </div>
 
-                {/* Right — diff viewer + commit graph */}
-                <div>
-                    {diffResult && <DiffViewer diff={diffResult} />}
-                    <CommitGraph commits={commits} />
+                {error && (
+                    <p className="text-red-400 bg-red-950/40 border border-red-900 rounded-lg px-4 py-3 mb-6">{error}</p>
+                )}
+                {loading && <p className="text-gray-400">Loading commits...</p>}
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    {/* Left — commit list */}
+                    <div>
+                        {/* Diff button */}
+                        {selectedCommits.length === 2 && (
+                            <button
+                                onClick={handleDiff}
+                                disabled={diffLoading}
+                                className="w-full bg-blue-600 hover:bg-blue-500 disabled:opacity-60 text-white py-3 rounded-lg mb-6 transition-colors">
+                                {diffLoading ? 'Computing diff...' : 'Compare selected commits'}
+                            </button>
+                        )}
+
+                        {/* Commit cards */}
+                        <div className="space-y-3">
+                            {commits.map((commit, i) => (
+                                <div
+                                    key={i}
+                                    onClick={() => handleSelectCommit(commit.hash)}
+                                    className={`p-4 rounded-xl cursor-pointer border transition ${
+                                        selectedCommits.includes(commit.hash)
+                                            ? 'border-blue-500 bg-gray-800'
+                                            : 'border-gray-800 bg-gray-900 hover:bg-gray-800 hover:border-gray-700'
+                                    }`}
+                                >
+                                    <div className="flex items-center justify-between mb-1">
+                                        <p className="font-mono text-blue-400 text-sm">
+                                            {commit.hash?.substring(0, 8)}
+                                        </p>
+                                        {selectedCommits.includes(commit.hash) && (
+                                            <span className="text-xs bg-blue-900/60 text-blue-300 px-2 py-0.5 rounded-full">
+                                                #{selectedCommits.indexOf(commit.hash) + 1}
+                                            </span>
+                                        )}
+                                    </div>
+                                    <p className="font-semibold mb-1">{commit.message}</p>
+                                    <div className="flex justify-between text-gray-500 text-sm">
+                                        <span>{commit.author}</span>
+                                        <span>{new Date(commit.timestamp).toLocaleString()}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {!loading && commits.length === 0 && (
+                            <div className="text-center mt-8 border border-dashed border-gray-800 rounded-xl py-16 px-6">
+                                <p className="text-gray-400">No commits yet</p>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Right — diff viewer + commit graph */}
+                    <div>
+                        {diffResult && <DiffViewer diff={diffResult} />}
+                        <CommitGraph commits={commits} />
+                    </div>
                 </div>
             </div>
         </div>

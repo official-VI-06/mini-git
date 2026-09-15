@@ -13,8 +13,8 @@ export default function FileEditor({ onStage }) {
     }
 
     return (
-        <div className="bg-gray-900 p-6 rounded-lg">
-            <h2 className="text-xl font-semibold mb-4 text-white!">Add File</h2>
+        <div className="bg-gray-900 border border-gray-800 p-6 rounded-xl">
+            <h2 className="text-lg font-bold mb-4 text-white!">Add File</h2>
             <form onSubmit={handleSubmit}>
 
                 {/* File path input */}
@@ -25,12 +25,12 @@ export default function FileEditor({ onStage }) {
                     placeholder="File path (e.g. src/Main.java)"
                     value={filePath}
                     onChange={(e) => setFilePath(e.target.value)}
-                    className="w-full bg-gray-800 text-white p-3 rounded-lg mb-3 outline-none font-mono"
+                    className="w-full bg-gray-800 text-white p-3 rounded-lg mb-3 outline-none font-mono focus:ring-2 focus:ring-blue-500 transition"
                     required
                 />
 
                 {/* Line numbers + textarea wrapper */}
-                <div className="flex bg-gray-800 rounded-lg mb-3 overflow-hidden">
+                <div className="flex bg-gray-800 rounded-lg mb-3 overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 transition">
                     {/* Line numbers */}
                     <div className="bg-gray-700 text-gray-500 p-3 text-right font-mono text-sm select-none min-w-10">
                         {content.split('\n').map((_, i) => (
@@ -56,7 +56,7 @@ export default function FileEditor({ onStage }) {
                     </span>
                     <button
                         type="submit"
-                        className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-lg">
+                        className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-lg transition-colors">
                         Stage File
                     </button>
                 </div>
