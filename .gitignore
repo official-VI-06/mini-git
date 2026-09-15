@@ -15,4 +15,6 @@ frontend/.env
 # Environment variables
 .env
 *.env
-claude/
+
+
+.claude/
